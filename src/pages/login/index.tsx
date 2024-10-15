@@ -6,40 +6,43 @@ import {MaterialIcons, AntDesign, Octicons} from "@expo/vector-icons";
 import { themas } from "../../global/themes";
 import { Input } from "../../components/input";
 import { Button } from "../../components/Button";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
+import Routes from "../../routes/index.routes";
 
 export default function Login (){
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState('');
+    const navigation = useNavigation<NavigationProp<any>>();
+
+    const [email, setEmail] = useState("mat.diniz15@outlook.com");
+    const [password, setPassword] = useState('123456');
     const [loading,setLoading] = useState(false);
     const [showPassword,setShowPassword] = useState(true);
 
     async function getLogin() {
         try {
-            setLoading(true);
+            setLoading(true)
 
             if (!email || !password) {
                 return Alert.alert("Atenção",'Informe os campos obrigatórios!');
             }
 
-            setTimeout(()=> {
-                if(email == 'mat.diniz15@outlook.com' && password == "12345") {
-                    Alert.alert("Logado com sucesso!");
-                }else{
-                    Alert.alert("Usuario ou senha incorreto!");
+            navigation.reset({routes:[{name:"BottomRoutes"}]});
 
-                }
-                setLoading(false);
-            },1000)
-
+            Alert.alert("Logado com sucesso!");
             
         } catch (error) {
             console.log(error);
-        } 
+        }finally{
+            setLoading(false)
+        }
     }
 
     return (
         <View style={style.container}>
+            {<Image
+                source={require("../../assets/Fundo2.png")} 
+                style={style.fundo}   
+            />}
             <View style={style.boxTop}>
                 <Image
                     source={Logo}
@@ -55,7 +58,7 @@ export default function Login (){
                     title="Login"
                     IconRigth={MaterialIcons}
                     iconRigthName="email"
-                />
+                />                
                 <Input 
                     value={password}
                     onChangeText={setPassword}
@@ -65,7 +68,9 @@ export default function Login (){
                     secureTextEntry={showPassword}
                     onIconRigthPress={()=>setShowPassword(!showPassword)}
                 />
-                <Text style={style.titleInput}>Esqueceu a senha?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate("StackRoutesPassword")}>
+                    <Text style={style.titleInput}>  Esqueceu a senha?</Text>
+                </TouchableOpacity>
             </View>
             <View style={style.boxBottom}> 
                 <Button 
@@ -74,7 +79,9 @@ export default function Login (){
                     onPress={()=>getLogin()}
                 />
             </View>
-            <Text style={style.textBotton}>Não tem conta? <Text style={{color:themas.colors.primary}}>Crie a sua agora!</Text></Text>
+            <Text style={style.textBotton}>Não tem conta? <TouchableOpacity onPress={() => navigation.navigate("StackRoutes")} > 
+                <Text style={{color:themas.colors.primary}}>Crie a sua agora!</Text>
+                </TouchableOpacity></Text>
 
         </View>
     )

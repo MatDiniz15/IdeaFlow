@@ -1,4 +1,4 @@
-import {Dimensions, LogBox, StyleSheet} from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
@@ -24,14 +24,15 @@ export const style = StyleSheet.create({
         height: Dimensions.get('window').height/4,
         width: '100%',
         // backgroundColor: "green",
-        paddingHorizontal: 37,
+        paddingHorizontal: 20,
+        paddingTop: 20, 
     }, 
     boxBottom:{
-        height: Dimensions.get('window').height/3,
+        height: "55%",
         width: '100%',
         // backgroundColor: "blue",
         alignItems: "center",
-        // justifyContent: 'center'
+        justifyContent: "flex-end"
     },
     logo:{
         width: 150,
@@ -39,7 +40,14 @@ export const style = StyleSheet.create({
     },
     text:{
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 32,
+        alignItems: "flex-start",
+        marginLeft: -180,
+    },
+    text2:{
+        alignItems: "flex-start",
+        marginLeft: -130,
+
     },
     titleInput: {
         marginLeft: 5,
@@ -74,5 +82,5 @@ export const style = StyleSheet.create({
         color: themas.colors.gray,
         paddingBottom:20,
     }
-    
+  
 })

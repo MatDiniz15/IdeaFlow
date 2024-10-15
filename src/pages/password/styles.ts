@@ -1,11 +1,11 @@
-import {Dimensions, LogBox, StyleSheet} from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-end",
     },
     
     fundo:{
@@ -18,20 +18,25 @@ export const style = StyleSheet.create({
         width: '100%',
         // backgroundColor: "red",
         alignItems: "center",
-        justifyContent: "center"  
+        justifyContent: "center",  
+        
     },
     boxMind:{
-        height: Dimensions.get('window').height/4,
+        height: Dimensions.get('window').height/8,        
         width: '100%',
         // backgroundColor: "green",
-        paddingHorizontal: 37,
+        paddingHorizontal: 20,
+        paddingTop: 20, 
+        justifyContent: "center"
+        
     }, 
     boxBottom:{
-        height: Dimensions.get('window').height/3,
+        height: "20%",
         width: '100%',
         // backgroundColor: "blue",
         alignItems: "center",
-        // justifyContent: 'center'
+        justifyContent: "center",
+        
     },
     logo:{
         width: 150,
@@ -39,7 +44,14 @@ export const style = StyleSheet.create({
     },
     text:{
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 32,
+        alignItems: "flex-start",
+        marginLeft: -100,
+    },
+    text2:{
+        alignItems: "flex-start",
+        marginLeft: -10,
+
     },
     titleInput: {
         marginLeft: 5,
@@ -74,5 +86,5 @@ export const style = StyleSheet.create({
         color: themas.colors.gray,
         paddingBottom:20,
     }
-    
+  
 })
