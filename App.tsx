@@ -10,7 +10,7 @@ export default function App() {
       <Routes />
     </NavigationContainer>
   );
-}
+} 
 
 const styles = StyleSheet.create({
   
