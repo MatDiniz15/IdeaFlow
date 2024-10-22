@@ -5,21 +5,47 @@ export const style = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: "center",
-        justifyContent: "center",
+        
     },
-    
     fundo:{
         position:'absolute',
         left:-200,
     },
-    boxMind:{
-        height: Dimensions.get('window').height/8,        
-        width: '100%',
-        // backgroundColor: "green",
-        paddingHorizontal: 20,
-        paddingTop: 20, 
-        justifyContent: "center"
-        
+    header:{
+      width:'100%',
+      height:Dimensions.get('window').height/6,
+      // backgroundColor:'blue',
+      justifyContent: "center",
+      paddingHorizontal:20,
+      paddingTop:30,  
     },
+    boxInput:{
+      width:'85%',
+      marginLeft:30,
+    },
+    boxList: {
+        flex: 1,
+        width:"100%",
+        // backgroundColor:'red'
+    },
+    card: {
+      width:"50%",
+      height:150,
+      backgroundColor: '#fff',
+      marginTop:6,
+      borderRadius: 10,
+      justifyContent:"center",
+      padding:10,
+      borderWidth: 1,
+      borderColor:themas.colors.lightGray
+    },
+    rowCard: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+
+    }
+
+
     
 })
