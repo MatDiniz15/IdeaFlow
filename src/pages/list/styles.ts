@@ -4,8 +4,8 @@ import { themas } from "../../global/themes";
 export const style = StyleSheet.create({
     container:{
         flex: 1,
+        padding: 10,
         alignItems: "center",
-        
     },
     fundo:{
         position:'absolute',
@@ -26,10 +26,13 @@ export const style = StyleSheet.create({
     boxList: {
         flex: 1,
         width:"100%",
-        // backgroundColor:'red'
+        backgroundColor:'red',    
+        justifyContent: 'space-between',
+
+  
     },
     card: {
-      width:"50%",
+      width:"40%",
       height:150,
       backgroundColor: '#fff',
       marginTop:6,
@@ -37,7 +40,7 @@ export const style = StyleSheet.create({
       justifyContent:"center",
       padding:10,
       borderWidth: 1,
-      borderColor:themas.colors.lightGray
+      borderColor:themas.colors.lightGray,
     },
     rowCard: {
       flexDirection: "row",

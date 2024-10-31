@@ -4,6 +4,7 @@ import Login from "../pages/login";
 import BottomRoutes from "./bottom.routes";
 import StackRoutes from "./stack.routes";
 import StackRoutesPassword from "./password.routes";
+import StackRoutesUserpassword from "./userpassword.routes"
 
 export default function Routes() {
     const Stack = createStackNavigator()
@@ -33,6 +34,10 @@ export default function Routes() {
             <Stack.Screen
                 name="StackRoutesPassword"
                 component={StackRoutesPassword}
+            />
+            <Stack.Screen
+                name="StackRoutesUserpassword"
+                component={StackRoutesUserpassword}
             />
 
 

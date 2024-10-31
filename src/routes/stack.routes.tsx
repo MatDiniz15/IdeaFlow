@@ -9,7 +9,6 @@ export default function StackRoutes() {
     return (
     <Stack.Navigator>
       <Stack.Screen name="Register" component={Register} />
-      
     </Stack.Navigator>
   );
 }

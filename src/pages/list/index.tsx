@@ -64,9 +64,11 @@ export default function List() {
               <View style={style.boxList}>
                 <FlatList 
                     data={data}
-                    style={{marginTop: 40, paddingHorizontal:30}}
+                    style={{marginTop: 30}}
                     keyExtractor={(item,index)=>item.item.toString()}
+                    numColumns='2'
                     renderItem={({item,index})=>{return (_rendercard(item))}}
+
                 />
 
               </View>

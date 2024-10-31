@@ -1,14 +1,14 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
-import password from '../pages/password'
+import userpassword from '../pages/userpassword'
 
 
 const Stack = createStackNavigator();
 
-export default function StackRoutesPassword() {
+export default function StackRoutesUserpassword() {
     return (
     <Stack.Navigator>
-      <Stack.Screen name="password" component={password} />
+      <Stack.Screen name="userpassword" component={userpassword} />
             
     </Stack.Navigator>
   );
