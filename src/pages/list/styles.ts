@@ -16,7 +16,7 @@ export const style = StyleSheet.create({
       height:Dimensions.get('window').height/6,
       // backgroundColor:'blue',
       justifyContent: "center",
-      paddingHorizontal:20,
+      // paddingHorizontal:20,
       paddingTop:30,  
     },
     boxInput:{
@@ -26,29 +26,38 @@ export const style = StyleSheet.create({
     boxList: {
         flex: 1,
         width:"100%",
-        backgroundColor:'red',    
-        justifyContent: 'space-between',
-
-  
+        // alignItems:"center",
+        // backgroundColor:'red',    
     },
     card: {
-      width:"40%",
-      height:150,
-      backgroundColor: '#fff',
+      width:"50%",
+      height:160,
+      backgroundColor: '#000',
       marginTop:6,
-      borderRadius: 10,
+      borderRadius: 20,
       justifyContent:"center",
-      padding:10,
+      // padding:10,
       borderWidth: 1,
       borderColor:themas.colors.lightGray,
     },
     rowCard: {
-      flexDirection: "row",
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "space-between",
-
-    }
-
-
-    
+      gap: 10,
+    },
+    rowCardLeft: {
+      width:'70%',
+      flexDirection:"row",
+      gap:10,
+      alignItems: "center",
+    },
+    titleCard: {
+      fontSize: 16,
+      fontWeight:"bold",
+      color:themas.colors.lightGray,
+    },
+    descriptionCard: {
+      color:themas.colors.lightGray
+    } 
 })
