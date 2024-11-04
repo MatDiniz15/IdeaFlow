@@ -1,6 +1,6 @@
 import React, { forwardRef, Fragment, LegacyRef } from "react";
 
-import {View, Text, TextInput, TextInputProps, TouchableOpacity} from "react-native";
+import {View, Text, TextInput, TextInputProps, TouchableOpacity, TextStyle, StyleProp} from "react-native";
 import { style } from "./style";
 import { themas } from "../../global/themes";
 
@@ -18,12 +18,14 @@ type Props = TextInputProps & {
     title?: string, 
     onIconLeftPress?: () => void,
     onIconRigthPress?: () => void,
+    height?: number,
+    labelStyle?:StyleProp<TextStyle>
 
 }
 
 export const Input = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null)=> {
 
-    const {IconLeft, IconRigth, iconLeftName, iconRigthName, title, onIconLeftPress, onIconRigthPress, ...rest } = Props
+    const {IconLeft, IconRigth, iconLeftName, iconRigthName, title, onIconLeftPress, onIconRigthPress, labelStyle,height, ...rest } = Props
 
     const calculateSizeWidth = () => {
         if(IconLeft && IconRigth){
@@ -47,8 +49,8 @@ export const Input = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null)=
 
     return (
         <Fragment>
-        {title&&<Text style={style.titleInput}>{title}</Text>}
-        <View style={[style.BoxInput, {paddingLeft:calculateSizePaddingLeft()}]}>
+        {title&&<Text style={[style.titleInput,labelStyle]}>{title}</Text>}
+        <View style={[style.BoxInput, {paddingLeft:calculateSizePaddingLeft(), height:height||40, padding:5}]}>
             {IconLeft && iconLeftName && (
                 <TouchableOpacity onPress={onIconLeftPress} style={style.Button}>
                     <IconLeft name={iconLeftName as any} size={20} color={themas.colors.gray} style={style.Icon} /> 
@@ -56,7 +58,7 @@ export const Input = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null)=
             )}
             <TextInput 
                 style={[
-                    style.input,{width:calculateSizeWidth()} 
+                    style.input,{width:calculateSizeWidth(),height:'100%'} 
                 ]}
                {...rest}
             />

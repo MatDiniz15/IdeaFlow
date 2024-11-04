@@ -9,6 +9,7 @@ export const themas = {
         bgScreen: '#f1f7fa',
         opacity: 0,
         red: 'gray',
-        blueLigth: '#87cef6'
+        blueLigth: '#87cef6',
+        trasparent: 'rgb(0, 0, 0, 0.5)'
     }
 }
