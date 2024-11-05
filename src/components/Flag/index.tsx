@@ -11,7 +11,7 @@ type Props =  {
 
 export function Flag({...rest}:Props){
     return (
-        <TouchableOpacity 
+        <View 
             style={[
                 style.container,
                 {backgroundColor:rest.color},
@@ -22,6 +22,6 @@ export function Flag({...rest}:Props){
             <Text style={{color:'#fff'}}>
                 {rest.caption}
             </Text>
-        </TouchableOpacity>
+        </View>
     )
 }

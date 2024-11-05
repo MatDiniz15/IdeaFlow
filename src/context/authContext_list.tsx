@@ -1,5 +1,5 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Alert, Dimensions, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Input } from "../components/input";
@@ -7,6 +7,7 @@ import { style } from "../pages/login/styles";
 import { themas } from "../global/themes";
 import { Flag } from "../components/Flag";
 import CustomDateTimePicker from "../components/CustomDateTimePicker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContextList:any = createContext({});
 
@@ -25,6 +26,8 @@ export const AuthProviderList = (props:any):any => {
     const [selectedTime, setSelectedTime] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
+    const [item, setItem] = useState(0);
+    const [taskList, setTaskList] = useState([])
     
 
     const onOpen = ()=> {
@@ -35,14 +38,22 @@ export const AuthProviderList = (props:any):any => {
         modalizeRef.current?.close();
     }
 
+    useEffect(()=>{
+        get_taskList()
+    },[])
+
     const _renderFlag = () => {
         return (
             flag.map((item,index)=>(
-                <TouchableOpacity key={index}>
+                <TouchableOpacity key={index}
+                    onPress={()=>{
+                        setSelectedFlag(item.caption)
+                    }}
+                >
                     <Flag 
                         caption={item.caption}
                         color={item.color}
-                        // selected
+                        selected={item.caption == selectedFlag}
                     />
                 </TouchableOpacity>
             )))
@@ -53,6 +64,61 @@ export const AuthProviderList = (props:any):any => {
     };
     const handleTimeChange = (date) => {
         setSelectedTime(date);
+    }
+    const handleSave = async() => {
+        if(!title || !description || !selectedFlag){
+            return Alert.alert("Atenção", "Preencha todos os campos!")
+        }
+        try {
+            const newItem = {
+                item:Date.now(),
+                title,
+                description,
+                flag:selectedFlag,
+                timeLimit:new Date(
+                    selectedDate.getFullYear(),
+                    selectedDate.getMonth(),
+                    selectedDate.getDate(),
+                    selectedTime.getHours(),
+                    selectedTime.getMinutes(),
+                ).toISOString(),
+            }
+
+            const storageData = await AsyncStorage.getItem('taskList');
+            // console.log(storageData)
+            let taskList = storageData ? JSON.parse(storageData) : [];
+            
+            taskList.push(newItem)
+            await AsyncStorage.setItem('taskList',JSON.stringify(taskList))
+
+            setTaskList(taskList)
+            setData()
+            onClose()
+            
+        } catch (error) {
+            console.log("deu ruim:",error);
+        }
+
+    }
+
+    const setData = () => {
+        setTitle('')
+        setDescription('')
+        setSelectedFlag('Important')
+        setItem(0) 
+        setSelectedDate(new Date())
+        setSelectedTime(new Date())
+
+    }
+
+    async function get_taskList() {
+        try {
+            const storageData = await AsyncStorage.getItem("taskList");
+            const taskList = storageData ? JSON.parse(storageData):[]
+            setTaskList(taskList)
+        } catch (error) {
+            console.log(error)            
+        }
     }
 
     const _container = () => {
@@ -69,7 +135,7 @@ export const AuthProviderList = (props:any):any => {
                             />
                         </TouchableOpacity>
                         <Text style={styles.title}>Criar nota</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>handleSave()}>
                             <AntDesign
                                 name="check"
                                 size={30}  
@@ -140,7 +206,7 @@ export const AuthProviderList = (props:any):any => {
     }
 
     return (
-        <AuthContextList.Provider value={{onOpen}}>
+        <AuthContextList.Provider value={{onOpen,taskList}}>
             {props.children}
             <Modalize
                 ref={modalizeRef}
