@@ -10,9 +10,12 @@ import { themas } from "../../global/themes";
 import { AuthContextList } from "../../context/authContext_list";
 import { formatDateToBR } from "../../global/functions";
 import { Swipeable } from "react-native-gesture-handler";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 
 export default function List() {
+
+  const navigation = useNavigation<NavigationProp<any>>();
 
   const {taskList} = useContext<AuthContextType>(AuthContextList)
   const swipeableRefs = useRef([]);
@@ -44,30 +47,32 @@ export default function List() {
   const _renderCard = (item:PropCard, index) => {
     const color = item.flag == 'Lecture notes'?themas.colors.blueLigth:themas.colors.red;
     return (
-      <TouchableOpacity style={style.card}>
-        <Swipeable
-         ref={(ref) => swipeableRefs.current[index] = ref}
-         key={index}
-         renderRightActions={renderRightActions}
-         renderLeftActions={renderLeftActions}
+      <View style={style.card}>
+        <TouchableOpacity  onPress={() => navigation.navigate("StackRoutesaddNote")}>
+            <Swipeable
+            ref={(ref) => swipeableRefs.current[index] = ref}
+            key={index}
+            renderRightActions={renderRightActions}
+            renderLeftActions={renderLeftActions}
 
-        >
-          <View style={style.rowCard}>
-            <View style={style.rowCardLeft}>
-              {/* <Ball color="red"/> */}
-              <View>
-                <Text style={style.titleCard}>{item.title}</Text>
-                <Text style={style.descriptionCard}>{item.description}</Text>
-                <Text style={style.descriptionCard}>até {formatDateToBR(item.timeLimit)}</Text>
-              </View> 
-            </View>
-            <Flag 
-              caption={item.flag} 
-              color={color}
-            />
-          </View>
-        </Swipeable>
-      </TouchableOpacity>
+            >
+              <View style={style.rowCard}>
+                <View style={style.rowCardLeft}>
+                  {/* <Ball color="red"/> */}
+                  <View>
+                    <Text style={style.titleCard}>{item.title}</Text>
+                    <Text style={style.descriptionCard}>{item.description}</Text>
+                    <Text style={style.descriptionCard}>{formatDateToBR(item.timeLimit)}</Text>
+                  </View> 
+                </View>
+                <Flag 
+                  caption={item.flag} 
+                  color={color}
+                />
+              </View>
+            </Swipeable>
+        </TouchableOpacity>
+      </View>
     )
   }
     return (

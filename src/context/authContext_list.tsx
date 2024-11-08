@@ -8,6 +8,7 @@ import { themas } from "../global/themes";
 import { Flag } from "../components/Flag";
 import CustomDateTimePicker from "../components/CustomDateTimePicker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TextInput } from "react-native-gesture-handler";
 
 export const AuthContextList:any = createContext({});
 
@@ -149,8 +150,9 @@ export const AuthProviderList = (props:any):any => {
                             value={title}
                             onChangeText={setTitle}
                         />
-                        <Input 
-                            title="Descrição:"
+                        <TextInput 
+                            // title="Descrição:"
+                            placeholder="Digite o seu texto aqui!"
                             labelStyle={styles.label}
                             height={100}
                             multiline
@@ -239,6 +241,12 @@ export const styles = StyleSheet.create({
         fontSize:20,
         fontWeight: 'bold'    
     },
+    image:{
+        width: "100%",
+        height:"40%",
+        borderRadius: 15,
+      //   marginLeft: 20   
+      },
     content: {
         width: "100%",
         paddingHorizontal: 20,
