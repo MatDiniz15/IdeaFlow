@@ -1,6 +1,6 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
-import { Alert, Dimensions, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Alert, Dimensions, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Input } from "../components/input";
 import { style } from "../pages/login/styles";
@@ -28,7 +28,8 @@ export const AuthProviderList = (props:any):any => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
     const [item, setItem] = useState(0);
-    const [taskList, setTaskList] = useState([])
+    const [taskList, setTaskList] = useState([]);
+    const [image, setImage] = useState("");
     
 
     const onOpen = ()=> {
@@ -73,6 +74,7 @@ export const AuthProviderList = (props:any):any => {
         try {
             const newItem = {
                 item:Date.now(),
+                image,
                 title,
                 description,
                 flag:selectedFlag,
@@ -122,7 +124,7 @@ export const AuthProviderList = (props:any):any => {
         }
     }
 
-    const _container = () => {
+    const _container = () => { 
         return (
             <KeyboardAvoidingView
                 style={style.container}
@@ -144,6 +146,9 @@ export const AuthProviderList = (props:any):any => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.content}>
+                        <Image style={styles.image}        
+                            source={require("../assets/estrada.jpeg")}
+                            />
                         <Input
                             title="Titulo:"
                             labelStyle={styles.label}
@@ -173,7 +178,7 @@ export const AuthProviderList = (props:any):any => {
                                         onPress={()=>setShowDatePicker(true)}
                                     />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={{width:120}} onPress={()=>setShowTimePicker(true)}>
+                                {/* <TouchableOpacity style={{width:120}} onPress={()=>setShowTimePicker(true)}>
                                     <Input 
                                         title="Hora Limite"
                                         labelStyle={styles.label}
@@ -181,7 +186,7 @@ export const AuthProviderList = (props:any):any => {
                                         value={selectedTime.toLocaleTimeString()}
                                         onPress={()=>setShowTimePicker(true)}
                                     />
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
                             </View>
                             <CustomDateTimePicker
                                 onDateChange={handleDateChange}
@@ -189,12 +194,12 @@ export const AuthProviderList = (props:any):any => {
                                 show={showDatePicker}
                                 type={'date'}
                             />
-                            <CustomDateTimePicker
+                            {/* <CustomDateTimePicker
                                 onDateChange={handleTimeChange}
                                 setShow={setShowTimePicker}
                                 show={showTimePicker}
                                 type={'time'}
-                            />
+                            /> */}
                         </View>
                         <View style={styles.containerFlag}>
                             <Text style={styles.label}>Flag:</Text>
@@ -212,7 +217,7 @@ export const AuthProviderList = (props:any):any => {
             {props.children}
             <Modalize
                 ref={modalizeRef}
-                childrenStyle={{height: Dimensions.get('window').height/1.6}}  
+                childrenStyle={{height: Dimensions.get('window').height/1.2}}  
                 adjustToContentHeight={true}
             >
                 {_container()}
@@ -227,33 +232,39 @@ export const useAuth = ()=> useContext(AuthContextList);
 export const styles = StyleSheet.create({
     container: {
         width: "100%",
+        flex: 1,
+          
+
     },
     header: {
         width: "100%",
-        height: 40,
+        height: 100,
         paddingHorizontal: 40,
         flexDirection: "row",
         marginTop: 20,
         justifyContent: "space-between",
         alignItems: "center",   
+        
     },
     title: {
         fontSize:20,
         fontWeight: 'bold'    
     },
+    content: {
+        width: "100%",
+        // height: 0,
+        paddingHorizontal: 20,
+        
+    },
     image:{
         width: "100%",
-        height:"40%",
+        height:"20%",
         borderRadius: 15,
       //   marginLeft: 20   
       },
-    content: {
-        width: "100%",
-        paddingHorizontal: 20,
-    },
     containerFlag: {
-        width: "100%",
-        padding: 10  
+        width: "80%",
+        padding: 10,
     },
     label: {
         fontWeight:'bold',
@@ -263,6 +274,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 10,
         marginTop: 10,
+
 
     }
 

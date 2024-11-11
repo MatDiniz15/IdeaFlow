@@ -7,18 +7,18 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignContent: "center",
-        backgroundColor:themas.colors.trasparent
+        backgroundColor: '#000'
     },
     container: {
         width: '80%',
         padding: 16,
-        backgroundColor:'#fff',
+        backgroundColor:'#000',
         elevation: 5,
         alignItems:"center",    
     },
     dateText: {
         marginTop: 20,
-        fontSize: 18,
+        fontSize: 20,
         textAlign:"center",
     }
 

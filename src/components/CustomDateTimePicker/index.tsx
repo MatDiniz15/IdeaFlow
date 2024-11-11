@@ -4,8 +4,7 @@ import { Modal, Platform, View } from "react-native";
 import { styles } from "./styles";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const CustomDateTimePicker = ({type,onDateChange, show, setShow}) => {
-
+const CustomDateTimePicker = ({type, onDateChange, show, setShow}) => {
     const [date, setDate] = useState(new Date());
 
     useEffect(() => {
@@ -14,8 +13,8 @@ const CustomDateTimePicker = ({type,onDateChange, show, setShow}) => {
         }
     },[date, onDateChange])
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
+    const onChange = (event) => {
+        const currentDate = date;
         setDate(currentDate);
         setShow(false);
     };
@@ -29,20 +28,16 @@ const CustomDateTimePicker = ({type,onDateChange, show, setShow}) => {
             <View style={styles.modalOverLay}>
                 <View style={[
                     styles.container,
-                    Platform.OS === 'android'&&{backgroundColor:'transparent'}
+                    Platform.OS === 'android'&&{backgroundColor:'#000'}
                 ]}>
                     <DateTimePicker
                         value={date}
                         mode={type}
                         display={Platform.OS === 'ios'?'inline':'default'}
                         onChange={onChange}
-
                     />
-
                 </View>
-
             </View>
-
         </Modal>
 
     )

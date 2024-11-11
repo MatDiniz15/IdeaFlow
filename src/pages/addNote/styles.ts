@@ -5,18 +5,25 @@ export const style = StyleSheet.create({
     container: {
         flex:1,
     },
-    fundo:{
-        position:'absolute',
-        left:-200,
-    },
+    // fundo:{
+    //     position:'absolute',
+    //     left:-200,
+    // },
     header: {
-        width: "100%", 
-        height: "100%",
-        backgroundColor: '#fff',  
+        width: "100%",
+        height: 40,
+        paddingHorizontal: 10,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center", 
     },
     title: {
         fontSize:25,
         fontWeight: 'bold'
+    },
+    content: {
+        width: "100%",
+        // paddingHorizontal: 10,
     },
     image:{
       width: "100%",
@@ -27,10 +34,6 @@ export const style = StyleSheet.create({
     text: {
         height: "100%",
         width: "90%",        
-    },
-    content: {
-        width: "100%",
-        paddingHorizontal: 20,
     },
     containerFlag: {
         width: "100%",

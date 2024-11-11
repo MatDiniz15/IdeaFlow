@@ -59,7 +59,7 @@ export default function List() {
               <View style={style.rowCard}>
                 <View style={style.rowCardLeft}>
                   {/* <Ball color="red"/> */}
-                  <View>
+                  <View> 
                     <Text style={style.titleCard}>{item.title}</Text>
                     <Text style={style.descriptionCard}>{item.description}</Text>
                     <Text style={style.descriptionCard}>{formatDateToBR(item.timeLimit)}</Text>
@@ -77,10 +77,10 @@ export default function List() {
   }
     return (
         <View style={style.container}>
-            {<Image
+            <Image
                 source={require("../../assets/Fundo2.png")} 
                 style={style.fundo}   
-            />}
+            />
             <View style={style.header}> 
               <View style={style.boxInput}>
                 <Input
@@ -97,8 +97,6 @@ export default function List() {
                     keyExtractor={(item,index)=>item.item.toString()}
                     numColumns='2'
                     renderItem={({item,index})=>{return (_renderCard(item, index))}}
-                    
-
                 />
 
               </View>
