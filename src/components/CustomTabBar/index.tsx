@@ -3,14 +3,19 @@ import { Text, Touchable, TouchableOpacity, View  } from "react-native";
 import { style } from "./styles";
 import { AntDesign, Feather, Entypo } from "@expo/vector-icons";
 import { AuthContextList } from "../../context/authContext_list";
- 
-export default ({state,navigation})=>{
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
-    const {onOpen} = useContext<any>(AuthContextList)
+ 
+export default ()=>{
+
+    // {state,navigation}
+    // const {onOpen} = useContext<any>(AuthContextList)
+    const navigation = useNavigation<NavigationProp<any>>();
+
 
     return (        
         <View style={style.tabArea}>
-            <TouchableOpacity style={style.tabItem} onPress={()=>onOpen()}>
+            <TouchableOpacity style={style.tabItem} onPress={()=> navigation.navigate("StackRoutesaddNote")}>
                 <View>
                     <Feather 
                         name="plus"

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, } from 'react';
+import React, { createContext, useContext, useEffect, useState, } from 'react';
 import { Text, View, Image, Button, TextInput, Alert } from 'react-native';
 import { style } from './styles';
 import { Input } from '../../components/input';
@@ -31,6 +31,9 @@ export default function addNote() {
   const [item, setItem] = useState(0);
   const [taskList, setTaskList] = useState([])
   
+  useEffect(()=>{
+    get_taskList()
+  },[])
 
   const _renderFlag = () => {
     return (
@@ -90,6 +93,17 @@ export default function addNote() {
     setItem(0) 
     setSelectedDate(new Date())
 }
+
+  async function get_taskList() {
+    try {
+        const storageData = await AsyncStorage.getItem("taskList");
+        const taskList = storageData ? JSON.parse(storageData):[]
+        setTaskList(taskList)
+    } catch (error) {
+        console.log(error)            
+    }
+  }
+
 
   return (
     <View style={style.container}>
