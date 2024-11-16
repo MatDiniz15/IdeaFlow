@@ -11,7 +11,7 @@ import { AuthContextList } from "../../context/authContext_list";
 import { formatDateToBR } from "../../global/functions";
 import { Swipeable } from "react-native-gesture-handler";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-
+import { ImageBackground } from "react-native";
 
 export default function List() {
 
@@ -44,37 +44,39 @@ export default function List() {
 
   }
 
-  const _renderCard = (item:PropCard, index) => {
-    const color = item.flag == 'Lecture notes'?themas.colors.blueLigth:themas.colors.red;
-    return (
-      <View style={style.card}>
-        <TouchableOpacity  onPress={() => navigation.navigate("StackRoutesaddNote")}>
-            <Swipeable
-            ref={(ref) => swipeableRefs.current[index] = ref}
-            key={index}
-            renderRightActions={renderRightActions}
-            renderLeftActions={renderLeftActions}
-
-            >
-              <View style={style.rowCard}>
-                <View style={style.rowCardLeft}>
-                  {/* <Ball color="red"/> */}
-                  <View> 
-                    <Text style={style.titleCard}>{item.title}</Text>
-                    <Text style={style.descriptionCard}>{item.description}</Text>
-                    <Text style={style.descriptionCard}>{formatDateToBR(item.timeLimit)}</Text>
-                  </View> 
-                </View>
-                <Flag 
-                  caption={item.flag} 
-                  color={color}
-                />
-              </View>
-            </Swipeable>
-        </TouchableOpacity>
-      </View>
-    )
-  }
+  const _renderCard = (item: PropCard, index) => {
+      const color = item.flag === 'Estudo' ? themas.colors.blueLigth : themas.colors.red;
+  
+      return (
+          <View style={style.card}>
+              <TouchableOpacity onPress={() => navigation.navigate("StackRoutesaddNote")}>
+                  <Swipeable
+                      ref={(ref) => swipeableRefs.current[index] = ref}
+                      key={index}
+                      renderRightActions={renderRightActions}
+                  >
+                      <ImageBackground
+                          source={{ uri: item.imageUri }}
+                          style={style.imageBackground}
+                          imageStyle={{ borderRadius: 12 }}
+                      >
+                          <View style={style.overlay}>
+                              <Text style={style.titleCard}  numberOfLines={1}>{item.title}</Text>
+                              <Text style={style.descriptionCard}  numberOfLines={1}>{item.description}</Text>
+                              <View style={style.footer}>
+                                  <Text style={style.dateText}>{formatDateToBR(item.timeLimit)}</Text>
+                                  <View style={style.tag}>
+                                      <Text style={[style.tagText, { color }]}>{item.flag}</Text>
+                                  </View>
+                              </View>
+                          </View>
+                      </ImageBackground>
+                  </Swipeable>
+              </TouchableOpacity>
+          </View>
+      );
+  };
+  
     return (
         <View style={style.container}>
             <Image

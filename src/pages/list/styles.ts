@@ -30,35 +30,76 @@ export const style = StyleSheet.create({
         // backgroundColor:'red',    
     },
     card: {
-      width:"50%",
+      width:"48%",
       height:160,
       backgroundColor: '#000',
       marginTop:6,
-      borderRadius: 20,
       justifyContent:"center",
       // padding:10,
       borderWidth: 1,
-      borderColor:themas.colors.lightGray,
+      marginBottom: 15,
+      marginHorizontal: 6, // Espaçamento horizontal entre os cartões
+      borderRadius: 12,
+      overflow: 'hidden',
+      shadowColor: '#000',
+      shadowOffset: { width: 4, height: 4 },
+      shadowOpacity: 0.2,
+      shadowRadius: 5,
+      elevation: 5, // Sombras em Android
     },
+    imageBackground: {
+      width: '100%', // Ajusta ao tamanho do cartão
+      height: 160, // Altura do cartão
+      justifyContent: 'space-around', // Alinha o conteúdo no final
+      overflow: 'hidden', // Garante bordas arredondadas funcionais
+    },
+    overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Fundo semi-transparente para contraste
+        padding: 10, // Espaçamento interno
+        paddingTop: 70,
+    },
+    titleCard: {
+        color: '#fff', // Texto em branco para legibilidade
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    descriptionCard: {
+        color: '#fff', // Texto em branco para contraste
+        fontSize: 14,
+        marginTop: 6,
+    },
+    footer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: 10,
+  },
+  dateText: {
+      color: '#FFFFFF',
+      fontSize: 12,
+  },
+  tag: {
+      backgroundColor: 'rgba(255, 255, 255, 0.2)', // Fundo translúcido para tag
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 8,
+  },
+  tagText: {
+      fontSize: 12,
+      fontWeight: '500',
+  },
     rowCard: {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "space-between",
       gap: 10,
+      padding: 10, // Espaçamento interno
     },
     rowCardLeft: {
       width:'70%',
       flexDirection:"row",
       gap:10,
       alignItems: "center",
-    },
-    titleCard: {
-      fontSize: 16,
-      fontWeight:"bold",
-      color:themas.colors.lightGray,
-    },
-    descriptionCard: {
-      color:themas.colors.lightGray
     },
     button: {
       backgroundColor:'red',

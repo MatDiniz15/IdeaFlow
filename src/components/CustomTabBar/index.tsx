@@ -8,14 +8,14 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
  
 export default ()=>{
 
-    // {state,navigation}
-    // const {onOpen} = useContext<any>(AuthContextList)
-    const navigation = useNavigation<NavigationProp<any>>();
+    {}
+    const {onOpen} = useContext<any>(AuthContextList)
+    // const navigation = useNavigation<NavigationProp<any>>();
 
 
     return (        
         <View style={style.tabArea}>
-            <TouchableOpacity style={style.tabItem} onPress={()=> navigation.navigate("StackRoutesaddNote")}>
+            <TouchableOpacity style={style.tabItem} onPress={()=> onOpen()}>
                 <View>
                     <Feather 
                         name="plus"

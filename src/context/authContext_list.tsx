@@ -9,13 +9,15 @@ import { Flag } from "../components/Flag";
 import CustomDateTimePicker from "../components/CustomDateTimePicker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TextInput } from "react-native-gesture-handler";
+import * as ImagePicker from 'expo-image-picker';
+
 
 export const AuthContextList:any = createContext({});
 
 const flag = [
-    {caption: 'Important', color: themas.colors.red},
-    {caption: 'Lecture notes', color: themas.colors.blueLigth},
-    {caption: "To-do lists", color: themas.colors.lightGray}  
+    {caption: 'Importante', color: "red"},
+    {caption: 'Estudo', color: themas.colors.blueLigth},
+    {caption: "Trabalho", color: "black"}  
 ]
 
 export const AuthProviderList = (props:any):any => {
@@ -24,12 +26,11 @@ export const AuthProviderList = (props:any):any => {
     const [description, setDescription] = useState('');
     const [selectedFlag, setSelectedFlag] = useState('urgente');
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedTime, setSelectedTime] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [showTimePicker, setShowTimePicker] = useState(false);
     const [item, setItem] = useState(0);
     const [taskList, setTaskList] = useState([]);
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState('');
+    const [imageUri, setImageUri] = useState<string | null>(null);
     
 
     const onOpen = ()=> {
@@ -64,9 +65,7 @@ export const AuthProviderList = (props:any):any => {
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
-    const handleTimeChange = (date) => {
-        setSelectedTime(date);
-    }
+
     const handleSave = async() => {
         if(!title || !description || !selectedFlag){
             return Alert.alert("Atenção", "Preencha todos os campos!")
@@ -74,7 +73,7 @@ export const AuthProviderList = (props:any):any => {
         try {
             const newItem = {
                 item:Date.now(),
-                image,
+                imageUri,
                 title,
                 description,
                 flag:selectedFlag,
@@ -82,8 +81,6 @@ export const AuthProviderList = (props:any):any => {
                     selectedDate.getFullYear(),
                     selectedDate.getMonth(),
                     selectedDate.getDate(),
-                    selectedTime.getHours(),
-                    selectedTime.getMinutes(),
                 ).toISOString(),
             }
 
@@ -102,7 +99,19 @@ export const AuthProviderList = (props:any):any => {
             console.log("deu ruim:",error);
         }
 
-    }
+    };
+
+    const handleImagePickerPress = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images, // Only allow images
+          allowsEditing: true,
+          aspect: [1, 1], // Optional: enforce square aspect ratio
+          quality: 1,
+        });
+        if (!result.canceled) {
+          setImageUri(result.assets[0].uri); // Set the selected image URI
+        }
+      };
 
     const setData = () => {
         setTitle('')
@@ -110,7 +119,6 @@ export const AuthProviderList = (props:any):any => {
         setSelectedFlag('Important')
         setItem(0) 
         setSelectedDate(new Date())
-        setSelectedTime(new Date())
 
     }
 
@@ -127,7 +135,7 @@ export const AuthProviderList = (props:any):any => {
     const _container = () => { 
         return (
             <KeyboardAvoidingView
-                style={style.container}
+                style={styles.container}
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
                     <View style={styles.header}>
@@ -146,11 +154,14 @@ export const AuthProviderList = (props:any):any => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.content}>
-                        <Image style={styles.image}        
-                            source={require("../assets/estrada.jpeg")}
-                            />
-                        <Input
-                            title="Titulo:"
+                        {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={handleImagePickerPress}>
+                         <Text>Open Picker</Text>
+                    </TouchableOpacity>
+                        <TextInput
+                            placeholder="Titulo:"
                             labelStyle={styles.label}
                             value={title}
                             onChangeText={setTitle}
@@ -159,7 +170,7 @@ export const AuthProviderList = (props:any):any => {
                             // title="Descrição:"
                             placeholder="Digite o seu texto aqui!"
                             labelStyle={styles.label}
-                            height={100}
+                            height={200}
                             multiline
                             numberOfLines={5}
                             value={description}
@@ -167,11 +178,11 @@ export const AuthProviderList = (props:any):any => {
                             textAlignVertical="top"
                         />
 
-                        <View style={{width:'40%'}}>
+                        <View style={{width:'10%'}}>
                             <View style={{flexDirection:'row', gap:10, width:'100%'}}>
                                 <TouchableOpacity  onPress={()=>setShowDatePicker(true)} style={{width:200}}>
                                     <Input 
-                                        title="Data Limite"
+                                        title="Data"
                                         labelStyle={styles.label}
                                         editable={false}
                                         value={selectedDate.toLocaleDateString()}
@@ -217,7 +228,7 @@ export const AuthProviderList = (props:any):any => {
             {props.children}
             <Modalize
                 ref={modalizeRef}
-                childrenStyle={{height: Dimensions.get('window').height/1.2}}  
+                childrenStyle={{height: Dimensions.get('window').height/1.0}}  
                 adjustToContentHeight={true}
             >
                 {_container()}
@@ -232,18 +243,18 @@ export const useAuth = ()=> useContext(AuthContextList);
 export const styles = StyleSheet.create({
     container: {
         width: "100%",
-        flex: 1,
-          
-
+        height: 800,
+        flex: 1,  
     },
     header: {
         width: "100%",
-        height: 100,
-        paddingHorizontal: 40,
+        height: 50,
+        paddingHorizontal: 10,
         flexDirection: "row",
-        marginTop: 20,
+        // marginTop: 10,
         justifyContent: "space-between",
         alignItems: "center",   
+
         
     },
     title: {
@@ -253,18 +264,19 @@ export const styles = StyleSheet.create({
     content: {
         width: "100%",
         // height: 0,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         
     },
     image:{
         width: "100%",
-        height:"20%",
+        height:"35%",
         borderRadius: 15,
       //   marginLeft: 20   
       },
     containerFlag: {
-        width: "80%",
+        width: "90%",
         padding: 10,
+        backgroundColor: "",
     },
     label: {
         fontWeight:'bold',
