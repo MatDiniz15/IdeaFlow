@@ -105,8 +105,34 @@ export const style = StyleSheet.create({
       backgroundColor:'red',
       justifyContent: 'center',
       alignItems: "center",
-      width:100,
-      marginVertical: 10,
+      width:70,
+      height: 70,
+      marginVertical: 50,
       borderRadius: 10,
+    },
+    emptyState: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 20,
+    },
+    emptyTitle: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: '#000',
+      textAlign: 'center',
+      marginBottom: 10,
+    },
+    emptySubtitle: {
+      fontSize: 16,
+      color: '#000',
+      textAlign: 'center',
+    },
+    Title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign:"left",
+      // backgroundColor: "blue",
     }
+    
 })

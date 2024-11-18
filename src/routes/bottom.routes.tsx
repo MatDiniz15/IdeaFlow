@@ -24,15 +24,6 @@ export default function BottomRoutes() {
                     tabBarLabel: 'List'
                 }}
             />
-            <Tab.Screen 
-                name="User" 
-                component={User} 
-                options={{
-                    tabBarIcon: ({color, size}) => <Feather name='plus' color={color} size={size}/>,
-                    tabBarLabel: 'User'
-
-                }}
-            />
         </Tab.Navigator>
     </AuthProviderList>
   );

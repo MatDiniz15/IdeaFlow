@@ -1,10 +1,10 @@
-import { Image } from "react-native"
+// import { Image } from "react-native"
 
 interface AuthContextType{
     taskList:Array<PropCard>,
     onOpen:void,
-    // handleEdit:Function,
-    // handleDelete:Function,
+    handleEdit:Function,
+    handleDelete:Function,
 }
 type PropCard = {
     description: string,
@@ -12,6 +12,6 @@ type PropCard = {
     item: number,
     timeLimit:string,
     title:string,
-    image:Image
+    // image:Image
 }
 type PropFlag = 'Importante'|'Estudo'|'Trabalho'

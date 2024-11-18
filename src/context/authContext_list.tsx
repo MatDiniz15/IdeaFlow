@@ -72,7 +72,7 @@ export const AuthProviderList = (props:any):any => {
         }
         try {
             const newItem = {
-                item:Date.now(),
+                item:item !== 0 ?item:Date.now(),
                 imageUri,
                 title,
                 description,
@@ -85,10 +85,16 @@ export const AuthProviderList = (props:any):any => {
             }
 
             const storageData = await AsyncStorage.getItem('taskList');
-            // console.log(storageData)
-            let taskList = storageData ? JSON.parse(storageData) : [];
+            let taskList:Array<any> = storageData ? JSON.parse(storageData) : [];
+
+            const itemIndex = taskList.findIndex((task) => task.item === newItem.item)
+
+            if (itemIndex >= 0){
+                taskList[itemIndex] = newItem
+            }else{
+                taskList.push(newItem)
+            }
             
-            taskList.push(newItem)
             await AsyncStorage.setItem('taskList',JSON.stringify(taskList))
 
             setTaskList(taskList)
@@ -119,6 +125,7 @@ export const AuthProviderList = (props:any):any => {
         setSelectedFlag('Important')
         setItem(0) 
         setSelectedDate(new Date())
+        setImageUri(null); // Adicione esta linha para limpar a imagem
 
     }
 
@@ -129,6 +136,37 @@ export const AuthProviderList = (props:any):any => {
             setTaskList(taskList)
         } catch (error) {
             console.log(error)            
+        }
+    }
+
+    const handleDelete = async (itemToDelete) => {
+        try {
+            const storageData = await AsyncStorage.getItem('taskList')
+            const taskList:Array<any> = storageData ? JSON.parse(storageData):[]
+
+            const updatedtaskList = taskList.filter(item=>item.item !== itemToDelete.item)
+
+            await AsyncStorage.setItem('taskList',JSON.stringify(updatedtaskList))
+            setTaskList(updatedtaskList)
+
+        } catch (error) {
+            console.log('Erro ao excluir o item.', error);
+        }
+    }
+
+    const handleEdit = async (itemToEdit:PropCard) => {
+        try {
+            setTitle(itemToEdit.title);
+            setDescription(itemToEdit.description);
+            setSelectedFlag(itemToEdit.flag); // Aqui corrigimos para itemToEdit
+            setImageUri(itemToEdit.imageUri); // Corrigimos para acessar o parâmetro correto
+    
+            const timeLimit = new Date(itemToEdit.timeLimit);
+            setSelectedDate(timeLimit);
+            onOpen();
+            setItem(itemToEdit.item);
+        } catch (error) {
+            console.log('Erro ao editar',error)
         }
     }
 
@@ -154,11 +192,16 @@ export const AuthProviderList = (props:any):any => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.content}>
-                        {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
+                    {imageUri && (
+                        <Image 
+                            source={{ uri: imageUri }} 
+                            style={styles.image}  
+                        />
+                    )}
                     <TouchableOpacity
                         activeOpacity={0.8}
                         onPress={handleImagePickerPress}>
-                         <Text>Open Picker</Text>
+                         <Text>Escolher Imagem. Clique aqui!</Text>
                     </TouchableOpacity>
                         <TextInput
                             placeholder="Titulo:"
@@ -189,15 +232,6 @@ export const AuthProviderList = (props:any):any => {
                                         onPress={()=>setShowDatePicker(true)}
                                     />
                                 </TouchableOpacity>
-                                {/* <TouchableOpacity style={{width:120}} onPress={()=>setShowTimePicker(true)}>
-                                    <Input 
-                                        title="Hora Limite"
-                                        labelStyle={styles.label}
-                                        editable={false}
-                                        value={selectedTime.toLocaleTimeString()}
-                                        onPress={()=>setShowTimePicker(true)}
-                                    />
-                                </TouchableOpacity> */}
                             </View>
                             <CustomDateTimePicker
                                 onDateChange={handleDateChange}
@@ -205,12 +239,6 @@ export const AuthProviderList = (props:any):any => {
                                 show={showDatePicker}
                                 type={'date'}
                             />
-                            {/* <CustomDateTimePicker
-                                onDateChange={handleTimeChange}
-                                setShow={setShowTimePicker}
-                                show={showTimePicker}
-                                type={'time'}
-                            /> */}
                         </View>
                         <View style={styles.containerFlag}>
                             <Text style={styles.label}>Flag:</Text>
@@ -224,7 +252,7 @@ export const AuthProviderList = (props:any):any => {
     }
 
     return (
-        <AuthContextList.Provider value={{onOpen,taskList}}>
+        <AuthContextList.Provider value={{onOpen,taskList,handleDelete, handleEdit}}>
             {props.children}
             <Modalize
                 ref={modalizeRef}
@@ -254,8 +282,6 @@ export const styles = StyleSheet.create({
         // marginTop: 10,
         justifyContent: "space-between",
         alignItems: "center",   
-
-        
     },
     title: {
         fontSize:20,
@@ -286,9 +312,5 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 10,
         marginTop: 10,
-
-
     }
-
-
 })

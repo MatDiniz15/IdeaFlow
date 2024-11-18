@@ -9,7 +9,7 @@ import { Flag } from "../../components/Flag";
 import { themas } from "../../global/themes";
 import { AuthContextList } from "../../context/authContext_list";
 import { formatDateToBR } from "../../global/functions";
-import { Swipeable } from "react-native-gesture-handler";
+import { Directions, Swipeable } from "react-native-gesture-handler";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { ImageBackground } from "react-native";
 
@@ -17,7 +17,7 @@ export default function List() {
 
   const navigation = useNavigation<NavigationProp<any>>();
 
-  const {taskList} = useContext<AuthContextType>(AuthContextList)
+  const {taskList, handleDelete, handleEdit} = useContext<AuthContextType>(AuthContextList)
   const swipeableRefs = useRef([]);
 
   const renderRightActions = () => {
@@ -41,19 +41,29 @@ export default function List() {
         />
       </View>
     )
-
   }
+
+  const handleSwipeOpen = (directions:'right',item,index) => {
+    if(directions === "right") {
+      handleDelete(item)
+    } else {
+      handleEdit(item)
+    }
+    swipeableRefs.current[index]?.close()
+  }  
 
   const _renderCard = (item: PropCard, index) => {
       const color = item.flag === 'Estudo' ? themas.colors.blueLigth : themas.colors.red;
   
       return (
           <View style={style.card}>
-              <TouchableOpacity onPress={() => navigation.navigate("StackRoutesaddNote")}>
+              <TouchableOpacity>
                   <Swipeable
                       ref={(ref) => swipeableRefs.current[index] = ref}
                       key={index}
                       renderRightActions={renderRightActions}
+                      renderLeftActions={renderLeftActions}
+                      onSwipeableOpen={(directions)=>handleSwipeOpen(directions,item,index)}
                   >
                       <ImageBackground
                           source={{ uri: item.imageUri }}
@@ -90,9 +100,18 @@ export default function List() {
                   iconRigthName="search"
                 />
               </View>
-              <Text>All notes</Text>
+              
             </View>
+            {taskList.length === 0 ? (
+             <View style={style.emptyState}>
+              <Text style={style.emptyTitle}>Start Your Journey</Text>
+             <Text style={style.emptySubtitle}>
+              Every big step starts with a small step. Notes your first idea and start your journey!
+          </Text>
+        </View>
+      ) : (
               <View style={style.boxList}>
+                <Text style={style.Title}>All notes</Text>
                 <FlatList 
                     data={taskList}
                     style={{marginTop: 30}}
@@ -102,10 +121,7 @@ export default function List() {
                 />
 
               </View>
-            {/* <Text>
-            Start Your Journey
-            </Text> */}
-            
+      )}
         </View>
 
     )
