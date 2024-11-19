@@ -5,6 +5,7 @@ interface AuthContextType{
     onOpen:void,
     handleEdit:Function,
     handleDelete:Function,
+    filter:(t:string)=>void
 }
 type PropCard = {
     description: string,

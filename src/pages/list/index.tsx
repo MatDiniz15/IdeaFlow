@@ -17,7 +17,7 @@ export default function List() {
 
   const navigation = useNavigation<NavigationProp<any>>();
 
-  const {taskList, handleDelete, handleEdit} = useContext<AuthContextType>(AuthContextList)
+  const {taskList, handleDelete, handleEdit, filter} = useContext<AuthContextType>(AuthContextList)
   const swipeableRefs = useRef([]);
 
   const renderRightActions = () => {
@@ -98,6 +98,7 @@ export default function List() {
                 <Input
                   IconRigth={MaterialIcons}
                   iconRigthName="search"
+                  onChangeText={(t)=>filter(t)}
                 />
               </View>
               

@@ -28,9 +28,10 @@ export const AuthProviderList = (props:any):any => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [item, setItem] = useState(0);
-    const [taskList, setTaskList] = useState([]);
+    const [taskList, setTaskList] = useState<Array<PropCard>>([]);
     const [image, setImage] = useState('');
     const [imageUri, setImageUri] = useState<string | null>(null);
+    const [taskListBackup, setTaskListBackup] = useState<Array<PropCard>>([]);
     
 
     const onOpen = ()=> {
@@ -98,6 +99,7 @@ export const AuthProviderList = (props:any):any => {
             await AsyncStorage.setItem('taskList',JSON.stringify(taskList))
 
             setTaskList(taskList)
+            setTaskListBackup(taskList)
             setData()
             onClose()
             
@@ -134,6 +136,7 @@ export const AuthProviderList = (props:any):any => {
             const storageData = await AsyncStorage.getItem("taskList");
             const taskList = storageData ? JSON.parse(storageData):[]
             setTaskList(taskList)
+            setTaskListBackup(taskList);
         } catch (error) {
             console.log(error)            
         }
@@ -148,6 +151,7 @@ export const AuthProviderList = (props:any):any => {
 
             await AsyncStorage.setItem('taskList',JSON.stringify(updatedtaskList))
             setTaskList(updatedtaskList)
+            setTaskListBackup(updatedtaskList)
 
         } catch (error) {
             console.log('Erro ao excluir o item.', error);
@@ -169,6 +173,24 @@ export const AuthProviderList = (props:any):any => {
             console.log('Erro ao editar',error)
         }
     }
+
+    const filter = (t: string) => {
+        if (!taskListBackup.length) return;
+    
+        const searchTerm = t.trim().toLowerCase();
+        if (searchTerm) {
+            const filteredArray = taskListBackup.filter((item) => {
+                return (
+                    item.title?.toLowerCase().includes(searchTerm) ||
+                    item.description?.toLowerCase().includes(searchTerm)
+                );
+            });
+    
+            setTaskList(filteredArray);
+        } else {
+            setTaskList(taskListBackup);
+        }
+    };
 
     const _container = () => { 
         return (
@@ -252,7 +274,7 @@ export const AuthProviderList = (props:any):any => {
     }
 
     return (
-        <AuthContextList.Provider value={{onOpen,taskList,handleDelete, handleEdit}}>
+        <AuthContextList.Provider value={{onOpen,taskList,handleDelete, handleEdit, filter}}>
             {props.children}
             <Modalize
                 ref={modalizeRef}
