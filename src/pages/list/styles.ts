@@ -30,7 +30,7 @@ export const style = StyleSheet.create({
         // backgroundColor:'red',    
     },
     card: {
-      width:"48%",
+      width:"46%",
       height:160,
       backgroundColor: '#000',
       marginTop:6,
