@@ -1,70 +1,81 @@
 import React, { useState } from "react";
-import {Text, View, Image, TextInput, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
+import {
+    Text,
+    View,
+    Image,
+    TouchableOpacity,
+    Alert,
+    ActivityIndicator
+} from "react-native";
 import { style } from "./styles";
-import Logo from '../../assets/logo2.png';
-import {MaterialIcons, AntDesign, Octicons} from "@expo/vector-icons";
-import { themas } from "../../global/themes";
 import { Input } from "../../components/input";
 import { Button } from "../../components/Button";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
-
-export default function password() {
-
+export default function Password() {
     const navigation = useNavigation<NavigationProp<any>>();
-
-    const [email, setEmail] = useState("mat.diniz15@outlook.com");
-    const [loading,setLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
 
     async function getUserPassWord() {
+        if (!email) {
+            return Alert.alert("Atenção", "Informe o email!");
+        }
+
         try {
-            setLoading(true)
+            setLoading(true);
 
-            if (!email) {
-                return Alert.alert("Atenção",'Informe os campos obrigatórios!');
-            }
+            // Navegação para a próxima tela após validação
+            navigation.reset({ routes: [{ name: "UserPassword" }] });
 
-            navigation.reset({routes:[{name:"StackRoutesUserpassword"}]});
-
-            Alert.alert("Codigo enviado!");
-            
+            Alert.alert("Código enviado!", "Verifique seu email para continuar.");
         } catch (error) {
             console.log(error);
-        }finally{
-            setLoading(false)
+            Alert.alert("Erro", "Não foi possível enviar o código.");
+        } finally {
+            setLoading(false);
         }
     }
 
-    
     return (
         <View style={style.container}>
-            {<Image
-                source={require("../../assets/Fundo2.png")} 
-                style={style.fundo}   
-            />}
+            <Image
+                source={require("../../assets/Fundo2.png")}
+                style={style.fundo}
+                resizeMode="cover"
+            />
+
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Login")}
+                style={style.backButton}
+            >
+                <Text style={style.backText}>{"<"} Voltar ao login</Text>
+            </TouchableOpacity>
+
             <View>
-                <Text style={style.text}>Esquecia a senha</Text>
+                <Text style={style.text}>Esqueci a senha</Text>
+                <Text style={style.text2}>
+                    Insira seu email para receber um código de recuperação.
+                </Text>
             </View>
-            <View>
-                <Text style={style.text2}>Insira seu email para receber um código de recuperação.</Text>
-            </View>
+
             <View style={style.boxMind}>
-                <Input 
+                <Input
                     value={email}
                     onChangeText={setEmail}
                     title="Endereço de email"
-                    // IconRigth={MaterialIcons}
-                    // iconRigthName="email"
+                    placeholder="Digite seu email"
+                    keyboardType="email-address"
                 />
             </View>
-            <View style={style.boxBottom}> 
-                <Button 
-                    text="Cadastro"
+
+            <View style={style.boxBottom}>
+                <Button
+                    text="Enviar"
                     loading={loading}
-                    onPress={()=>getUserPassWord()}
+                    onPress={getUserPassWord}
                 />
             </View>
         </View>
-    )
-    
+    );
 }

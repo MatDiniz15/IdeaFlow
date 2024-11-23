@@ -3,11 +3,11 @@ import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
     container: {
-        width: 75,
+        width: 70,
         height: 30,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "gray",
+        backgroundColor: themas.colors.red,
         borderRadius: 4,
     }
 

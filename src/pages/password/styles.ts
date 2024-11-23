@@ -2,70 +2,63 @@ import { StyleSheet, Dimensions } from "react-native";
 import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         alignItems: "center",
         justifyContent: "flex-end",
     },
-    
+
     fundo:{
         position:'absolute',
         left:-200,
     },
 
-    boxTop:{
-        height: Dimensions.get('window').height/3,
-        width: '100%',
-        // backgroundColor: "red",
-        alignItems: "center",
-        justifyContent: "center",  
-        
+    backButton: {
+        position: "absolute",
+        top: 50,
+        left: 20,
     },
-    boxMind:{
-        height: Dimensions.get('window').height/8,        
-        width: '100%',
-        // backgroundColor: "green",
-        paddingHorizontal: 20,
-        paddingTop: 20, 
-        justifyContent: "center"
-        
-    }, 
-    boxBottom:{
-        height: "20%",
-        width: '100%',
-        // backgroundColor: "blue",
-        alignItems: "center",
-        justifyContent: "center",
-        
-    },
-    logo:{
-        width: 150,
-        height: 120,
-    },
-    text:{
-        fontWeight: 'bold',
-        fontSize: 32,
-        alignItems: "flex-start",
-        marginLeft: -100,
-    },
-    text2:{
-        alignItems: "flex-start",
-        marginLeft: -10,
 
+    backText: {
+        fontSize: 14,
+        color: "#000",
+        fontWeight: "500",
     },
-    titleInput: {
-        marginLeft: 5,
+
+    text: {
+        fontWeight: "bold",
+        fontSize: 32,
+        marginBottom: 16,
+        textAlign: "center",
+        color: "#000",
+    },
+
+    text2: {
+        fontSize: 14,
+        textAlign: "left",
         color: themas.colors.gray,
-        marginTop: 20,
+        marginHorizontal: 20,
     },
+
+    boxMind: {
+        width: "100%",
+        paddingHorizontal: 20,
+        marginBottom: 20,
+    },
+
+    boxBottom: {
+        width: "100%",
+        paddingHorizontal: 80,
+        marginBottom: 50,
+    },
+
     button: {
-        width: 250,
+        width: "80%",
         height: 50,
-        marginTop:60,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: themas.colors.primary,  
-        borderRadius: 40,
+        backgroundColor: themas.colors.primary,
+        borderRadius: 25,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -75,16 +68,10 @@ export const style = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 7,
     },
+
     textButton: {
         fontSize: 16,
-        color: '#fff',
+        color: "#fff",
         fontWeight: "bold",
-         
     },
-    textBotton: {
-        fontSize: 16,
-        color: themas.colors.gray,
-        paddingBottom:20,
-    }
-  
-})
+});

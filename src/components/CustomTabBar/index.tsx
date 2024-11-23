@@ -10,7 +10,7 @@ export default ()=>{
 
     {}
     const {onOpen} = useContext<any>(AuthContextList)
-    // const navigation = useNavigation<NavigationProp<any>>();
+    const navigation = useNavigation<NavigationProp<any>>();
 
 
     return (        

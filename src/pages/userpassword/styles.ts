@@ -2,89 +2,54 @@ import { StyleSheet, Dimensions } from "react-native";
 import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         alignItems: "center",
         justifyContent: "flex-end",
+        backgroundColor: themas.colors.background,
     },
-    
     fundo:{
         position:'absolute',
         left:-200,
     },
-
-    boxTop:{
-        height: Dimensions.get('window').height/3,
-        width: '100%',
-        // backgroundColor: "red",
-        alignItems: "center",
-        justifyContent: "center",  
-        
+    backButton: {
+        position: "absolute",
+        top: 50,
+        left: 20,
     },
-    boxMind:{
-        height: Dimensions.get('window').height/8,        
-        width: '100%',
-        // backgroundColor: "green",
-        paddingHorizontal: 20,
-        paddingTop: 20, 
-        justifyContent: "center"
-        
-    }, 
-    boxBottom:{
-        height: "20%",
-        width: '100%',
-        // backgroundColor: "blue",
-        alignItems: "center",
-        justifyContent: "center",
-        
-    },
-    logo:{
-        width: 150,
-        height: 120,
-    },
-    text:{
-        fontWeight: 'bold',
-        fontSize: 32,
-        alignItems: "flex-start",
-        marginLeft: -100,
-    },
-    text2:{
-        alignItems: "flex-start",
-        marginLeft: -10,
-
-    },
-    titleInput: {
-        marginLeft: 5,
+    backText: {
+        fontSize: 14,
         color: themas.colors.gray,
+        fontWeight: "500",
+    },
+    title: {
+        marginTop: 120,
+        fontSize: 24,
+        color: "#000",
+        fontWeight: "bold",
+        textAlign: "left",
+    },
+    description: {
+        marginTop: 10,
+        fontSize: 16,
+        color: themas.colors.gray,
+        textAlign: "center",
+        paddingHorizontal: 40,
+    },
+    inputWrapper: {
+        width: "90%",
         marginTop: 20,
     },
-    button: {
-        width: 250,
-        height: 50,
-        marginTop:60,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: themas.colors.primary,  
-        borderRadius: 40,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.29,
-        shadowRadius: 4.65,
-        elevation: 7,
-    },
-    textButton: {
-        fontSize: 16,
-        color: '#fff',
-        fontWeight: "bold",
-         
-    },
-    textBotton: {
-        fontSize: 16,
+    helperText: {
+        width: "90%",
+        fontSize: 14,
         color: themas.colors.gray,
-        paddingBottom:20,
-    }
-  
-})
+        textAlign: "left",
+        marginTop: 5,
+    },
+    buttonWrapper: {
+        width: "100%",
+        paddingHorizontal: 80,
+        marginBottom: 50,
+    },
+});

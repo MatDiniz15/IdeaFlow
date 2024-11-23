@@ -14,7 +14,7 @@ export default function Login (){
     const navigation = useNavigation<NavigationProp<any>>();
 
     const [email, setEmail] = useState("mat.diniz15@outlook.com");
-    const [password, setPassword] = useState('123456');
+    const [password, setPassword] = useState('');
     const [loading,setLoading] = useState(false);
     const [showPassword,setShowPassword] = useState(true);
 
@@ -68,7 +68,7 @@ export default function Login (){
                     secureTextEntry={showPassword}
                     onIconRigthPress={()=>setShowPassword(!showPassword)}
                 />
-                <TouchableOpacity onPress={() => navigation.navigate("StackRoutesPassword")}>
+                <TouchableOpacity onPress={()=> navigation.navigate("Password")}>
                     <Text style={style.titleInput}>  Esqueceu a senha?</Text>
                 </TouchableOpacity>
             </View>
@@ -79,7 +79,7 @@ export default function Login (){
                     onPress={()=>getLogin()}
                 />
             </View>
-            <Text style={style.textBotton}>Não tem conta? <TouchableOpacity onPress={() => navigation.navigate("StackRoutes")} > 
+            <Text style={style.textBotton}>Não tem conta? <TouchableOpacity onPress={() => navigation.navigate("Register")} > 
                 <Text style={{color:themas.colors.primary}}>Crie a sua agora!</Text>
                 </TouchableOpacity></Text>
 
