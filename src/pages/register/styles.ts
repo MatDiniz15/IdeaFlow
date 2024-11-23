@@ -12,7 +12,16 @@ export const style = StyleSheet.create({
         position:'absolute',
         left:-200,
     },
-
+    backButton: {
+        position: "absolute",
+        top: 50,
+        left: 20,
+    },
+    backText: {
+        fontSize: 14,
+        color: themas.colors.gray,
+        fontWeight: "500",
+    },
     boxTop:{
         height: Dimensions.get('window').height/3,
         width: '100%',

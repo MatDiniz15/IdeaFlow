@@ -2,10 +2,9 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../pages/login";
 import BottomRoutes from "./bottom.routes";
-import StackRoutes from "./stack.routes";
-import StackRoutesPassword from "./password.routes";
-import StackRoutesUserpassword from "./userpassword.routes";
-import StackRoutesaddNote from "./addNote.routes"
+import Register from "../pages/register";
+import Password from "../pages/password";
+import UserPassword from "../pages/userpassword";
 
 
 export default function Routes() {
@@ -30,21 +29,20 @@ export default function Routes() {
                 component={BottomRoutes}
             />   
             <Stack.Screen
-                name="StackRoutes"
-                component={StackRoutes}
+                name="Register"
+                component={Register}
             /> 
             <Stack.Screen
-                name="StackRoutesPassword"
-                component={StackRoutesPassword}
+                name="Password"
+                component={Password}
             />
             <Stack.Screen
-                name="StackRoutesUserpassword"
-                component={StackRoutesUserpassword}
+                name="UserPassword"
+                component={UserPassword}
             />
-            <Stack.Screen
-                name="StackRoutesaddNote"
-                component={StackRoutesaddNote}
-            />
+            
+
+            
 
 
 

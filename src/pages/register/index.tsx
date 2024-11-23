@@ -25,6 +25,9 @@ export default function Register() {
                 source={require("../../assets/Fundo2.png")} 
                 style={style.fundo}   
             />}
+            <TouchableOpacity onPress={() => navigation.navigate("Login")} style={style.backButton}>
+                <Text style={style.backText}>{"<"} Voltar ao login</Text>
+            </TouchableOpacity>
             <View>
                 <Text style={style.text}>Registre-se</Text>
             </View>

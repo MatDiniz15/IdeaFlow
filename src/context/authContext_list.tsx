@@ -286,7 +286,7 @@ export const AuthProviderList = (props: any): any => {
       {props.children}
       <Modalize
         ref={modalizeRef}
-        childrenStyle={{ height: Dimensions.get('window').height / 1 }}
+        childrenStyle={{ height: Dimensions.get('window').height / 0.5 }}
         adjustToContentHeight={false} // Importante para habilitar rolagem
         scrollViewProps={{
           keyboardShouldPersistTaps: 'handled', // Permite interação com inputs dentro do modal
@@ -298,56 +298,69 @@ export const AuthProviderList = (props: any): any => {
 };
 export const useAuth = () => useContext(AuthContextList);
 
+const { width, height } = Dimensions.get("window");
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
+    backgroundColor: "#fff", // Cor de fundo clara para melhor visibilidade
+    // paddingHorizontal: 5,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 50,
+    width: "100%",
+    height: 60,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 10,
+    backgroundColor: "#f5f5f5", // Cor suave no cabeçalho
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#333", // Cor de texto mais visível
   },
   content: {
     flex: 1,
     paddingHorizontal: 10,
+    // marginTop: 15,
   },
   scrollContent: {
     paddingBottom: 50,
   },
   image: {
-    width: '100%',
-    height: 200,
+    width: width * 0.98, // 90% da largura da tela
+    height: height * 0.35, // 35% da altura da tela
     borderRadius: 15,
-    marginBottom: 20,
-  },
-  imagePicker: {
-    marginBottom: 20,
-    alignItems: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
-  },
-  label: {
-    fontWeight: 'bold',
-    color: '#000',
+    alignSelf: "center", // Centraliza a imagem
+    marginVertical: 10, // Espaçamento vertical
   },
   containerFlag: {
-    marginTop: 20,
+    width: "80%",
+    padding: 10,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 8,
+    alignSelf: "flex-start",
+    marginBottom: 10,
+    shadowColor: "#000", // Sombras para destacar o container
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2, // Sombras no Android
+  },
+  label: {
+    fontWeight: "600",
+    color: "#555", // Cor mais suave para labels
+    fontSize: 14,
+    marginBottom: 5,
   },
   rowFlag: {
-    flexDirection: 'row',
-    gap: 10,
+    flexDirection: "row",
+    justifyContent: "center", // Espaçamento igual entre os itens
     marginTop: 10,
+    flexWrap: "wrap", // Permite quebra em múltiplas linhas se necessário
+    gap: 12,
   },
 });
